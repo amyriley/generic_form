@@ -32,7 +32,10 @@ const GenericInput: React.SFC<IGenericInput> = (props) => {
             size="small"
             value={field.input.value}
             onChange={field.input.onChange}
-            style={{ padding: "10px 0 0 10px" }}
+            style={{
+              width: "300px",
+              margin: "10px 0 0 10px",
+            }}
           ></TextField>
         </div>
       ) : type === "dropDown" && options ? (
@@ -49,7 +52,7 @@ const GenericInput: React.SFC<IGenericInput> = (props) => {
             }}
             id="controllable-states-demo"
             options={options}
-            style={{ width: 300, padding: "10px 0 0 10px" }}
+            style={{ width: "300px", margin: "10px 0 0 10px" }}
             renderInput={(params) => (
               <TextField {...params} label={label} variant="outlined" />
             )}

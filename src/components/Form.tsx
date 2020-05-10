@@ -10,13 +10,18 @@ const Form = () => {
   const formFields = [
     {
       type: "text",
-      label: "Email",
-      name: "email",
+      label: "First Name",
+      name: "firstName",
     },
     {
       type: "text",
-      label: "First Name",
-      name: "firstName",
+      label: "Last Name",
+      name: "lastName",
+    },
+    {
+      type: "text",
+      label: "Email",
+      name: "email",
     },
     {
       type: "dropDown",
