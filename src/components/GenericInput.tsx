@@ -16,8 +16,8 @@ const GenericInput: React.SFC<IGenericInput> = (props) => {
 
   const field = useField(name, form);
 
-  const [value, setValue] = useState<string | null>(options[0]);
-  const [inputValue, setInputValue] = useState("");
+  const [value, setValue] = useState<string | null>(field.input.value);
+  const [inputValue, setInputValue] = useState(field.input.value);
 
   console.log("field", field);
 
@@ -32,6 +32,7 @@ const GenericInput: React.SFC<IGenericInput> = (props) => {
             size="small"
             value={field.input.value}
             onChange={field.input.onChange}
+            style={{ padding: "10px 0 0 10px" }}
           ></TextField>
         </div>
       ) : type === "dropDown" && options ? (
@@ -48,11 +49,14 @@ const GenericInput: React.SFC<IGenericInput> = (props) => {
             }}
             id="controllable-states-demo"
             options={options}
-            style={{ width: 300 }}
+            style={{ width: 300, padding: "10px 0 0 10px" }}
             renderInput={(params) => (
               <TextField {...params} label={label} variant="outlined" />
             )}
             size={"small"}
+            getOptionSelected={(option, value) =>
+              value === "" || value === option
+            }
           />
         </div>
       ) : (
