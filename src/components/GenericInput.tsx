@@ -3,48 +3,51 @@ import { useField } from "react-final-form-hooks";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
+// split out type to separate interface
+
 interface IGenericInput {
   type: string;
   label: string;
   name: string;
   options?: string[];
   form: any;
+  validators?: any;
 }
 
 const GenericInput: React.SFC<IGenericInput> = (props) => {
-  const { type, label, options = [], name, form } = props;
+  const { type, label, options = [], name, form, validators } = props;
 
-  const field = useField(name, form);
+  const { meta, input } = useField(name, form, validators);
 
-  const [value, setValue] = useState<string | null>(field.input.value);
-  const [inputValue, setInputValue] = useState(field.input.value);
-
-  console.log("field", field);
+  const [value, setValue] = useState<string | null>(input.value);
+  const [inputValue, setInputValue] = useState(input.value);
 
   return (
     <div>
       {type === "text" ? (
         <div>
           <TextField
-            id={field.input.name}
+            id={input.name}
             label={label}
             variant="outlined"
             size="small"
-            value={field.input.value}
-            onChange={field.input.onChange}
+            value={input.value}
+            onChange={input.onChange}
             style={{
               width: "300px",
               margin: "10px 0 0 10px",
             }}
+            error={!!meta.error}
+            helperText={meta.error}
           ></TextField>
         </div>
-      ) : type === "dropDown" && options ? (
+      ) : type === "dropdown" && options ? (
         <div>
           <Autocomplete
             value={value}
             onChange={(event: any, newValue: string | null) => {
               setValue(newValue);
-              field.input.onChange(newValue);
+              input.onChange(newValue);
             }}
             inputValue={inputValue}
             onInputChange={(event, newInputValue) => {
